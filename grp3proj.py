@@ -39,7 +39,22 @@ def preprocess_text(text):
     stopwords = set(nltk.corpus.stopwords.words('english'))
     tokens = [token for token in tokens if token not in stopwords]
     
+    
     # Reconstruct text from tokens
     processed_text = ' '.join(tokens)
     
     return processed_text
+
+# URLs of the articles to compare
+url1 = 'https://www.example.com/article1'
+url2 = 'https://www.example.com/article2'
+
+# Fetch and preprocess articles
+article1 = preprocess_text(fetch_article(url1))
+article2 = preprocess_text(fetch_article(url2))
+
+# Combine the articles into a list
+documents = [article1, article2]
+
+
+    
