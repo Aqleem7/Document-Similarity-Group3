@@ -1,11 +1,12 @@
 import json
 import os
-import streamlit as st
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import streamlit as st
 
 def load_json_from_file(file_path):
+    """Load JSON data from a file."""
     if not os.path.exists(file_path):
         return []
     try:
@@ -16,6 +17,7 @@ def load_json_from_file(file_path):
         return []
 
 def check_plagiarism(user_article, articles, threshold=0.7):
+    """Check for plagiarism by comparing the user article with stored articles."""
     documents = [article['content'] for article in articles] + [user_article]
     tfidf_vectorizer = TfidfVectorizer().fit_transform(documents)
     cosine_matrix = cosine_similarity(tfidf_vectorizer[-1], tfidf_vectorizer[:-1])
@@ -23,22 +25,17 @@ def check_plagiarism(user_article, articles, threshold=0.7):
     return max_similarity, max_similarity > threshold
 
 def main():
-    st.title("Plagiarism Detection")
+    """Main function to run the Streamlit app."""
+    st.title("Plagiarism Checker")
 
     articles_file_path = 'articles.json'
 
-    st.subheader("Uploaded Articles")
+    st.write("Reading and displaying all articles from the saved file...")
     saved_articles = load_json_from_file(articles_file_path)
-    if saved_articles:
-        for article in saved_articles:
-            st.text_area(f"Article {saved_articles.index(article) + 1}", article['content'], height=200)
-    else:
-        st.info("No articles found in the saved file.")
 
-    st.subheader("Check for Plagiarism")
-    user_article = st.text_area("Enter the article to check for plagiarism:", height=200)
+    user_article = st.text_area("Please enter the article to check for plagiarism:").strip()
 
-    if st.button("Check"):
+    if st.button("Check for Plagiarism"):
         if user_article:
             max_similarity, is_plagiarized = check_plagiarism(user_article, saved_articles)
             if is_plagiarized:
@@ -48,3 +45,5 @@ def main():
         else:
             st.warning("Please enter an article to check.")
 
+if __name__ == "__main__":
+    main()
