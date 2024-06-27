@@ -30,7 +30,7 @@ def main():
 
     articles_file_path = 'articles.json'
 
-    st.write("Reading and displaying all articles from the saved file...")
+    #st.write("Reading and displaying all articles from the saved file...")
     saved_articles = load_json_from_file(articles_file_path)
 
     user_article = st.text_area("Please enter the article to check for plagiarism:").strip()
