@@ -48,5 +48,5 @@ def main():
         else:
             st.warning("Please enter an article to check.")
 
-if _name_ == "_main_":
-    main()
+'''if _name_ == "_main_":
+    main()'''
