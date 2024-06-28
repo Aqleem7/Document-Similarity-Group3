@@ -1,3 +1,6 @@
+#Deployed Project on Streamlit
+https://document-similarity-group3.streamlit.app/
+
 #The code used to create the `Articles.json` file, which serves as our database, was generated through web scraping.
 '''import requests
 from bs4 import BeautifulSoup
